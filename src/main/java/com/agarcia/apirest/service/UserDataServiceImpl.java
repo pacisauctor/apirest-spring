@@ -29,17 +29,17 @@ public class UserDataServiceImpl implements UserDataService {
 
     @Override
     public UserData findById(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return userDataDAO.findById(id);
     }
 
     @Override
     public void save(UserData user) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        userDataDAO.save(user);
     }
 
     @Override
     public void deleteById(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        userDataDAO.deleteById(id);
     }
     
 }

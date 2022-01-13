@@ -33,17 +33,34 @@ public class UserDataDAOImpl implements UserDataDAO {
 
     @Override
     public UserData findById(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Session currentSession = entityManager.unwrap(Session.class);
+        Query query =  currentSession.createNamedQuery("UserData.findById");
+        query.setParameter("id", id);
+        List<UserData> lists = query.getResultList();
+        if(!lists.isEmpty()){
+            return lists.get(0);
+        }
+        return null;
     }
 
     @Override
     public void save(UserData user) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Session currentSession = entityManager.unwrap(Session.class);
+        currentSession.saveOrUpdate(user);  
     }
 
     @Override
     public void deleteById(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Session currentSession = entityManager.unwrap(Session.class);
+        Query query =  currentSession.createNamedQuery("UserData.findById");
+        query.setParameter("id", id);
+        List<UserData> lists = query.getResultList();
+        if(!lists.isEmpty()){
+            UserData res =  lists.get(0);
+            res.setIsActive(Boolean.FALSE);
+            currentSession.saveOrUpdate(res);
+        }
+        
     }
 
 }

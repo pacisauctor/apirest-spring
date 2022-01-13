@@ -6,6 +6,7 @@
     <class>com.agarcia.apirest.entity.Product</class>
     <class>com.agarcia.apirest.entity.Tag</class>
     <class>com.agarcia.apirest.entity.UserData</class>
+    <class>com.agarcia.apirest.UserData</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:sqlserver://172.17.0.2\mssql:1433;databaseName=app_database"/>
       <property name="javax.persistence.jdbc.user" value="sa"/>

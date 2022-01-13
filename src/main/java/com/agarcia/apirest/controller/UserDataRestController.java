@@ -5,7 +5,6 @@
  */
 package com.agarcia.apirest.controller;
 
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +20,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.agarcia.apirest.entity.UserData;
+import com.agarcia.apirest.entity.UserDataRequest;
 import com.agarcia.apirest.service.UserDataService;
+import com.agarcia.apirest.utils.ResponseHandler;
+import java.util.Date;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+
 /**
  *
  * @author pacisauctor
@@ -29,15 +34,67 @@ import com.agarcia.apirest.service.UserDataService;
 @RestController
 @RequestMapping("/api")
 public class UserDataRestController {
+
     @Autowired
     private UserDataService userDataService;
-    
+
     @GetMapping("/users")
-    public List<UserData> findAll(){
-        return userDataService.findAll();
+    public ResponseEntity<Object> findAll() {
+
+        List<UserData> users = userDataService.findAll();
+        return ResponseHandler.generateResponse("Usuarios recuperados", HttpStatus.OK, users);
     }
-    @GetMapping("/")
-    public String welcome(){
-        return "hello world";
+
+    @GetMapping("/users/{userId}")
+    public ResponseEntity<Object> getUser(@PathVariable int userId) {
+        UserData user = userDataService.findById(userId);
+
+        if (user == null) {
+            return ResponseHandler.generateResponse("Usuario no encontrado", HttpStatus.NOT_FOUND, null);
+        } else {
+            return ResponseHandler.generateResponse("Usuario encontrado!", HttpStatus.OK, user);
+        }
     }
+
+    @PostMapping("/users")
+    public ResponseEntity<Object> addUser(@RequestBody UserDataRequest userRequest) {
+        try {
+            UserData user = userRequest.convert();
+            user.setDateCreated(new Date());
+            user.setIsActive(Boolean.TRUE);
+            userDataService.save(user);
+            return ResponseHandler.generateResponse("Usuario creado", HttpStatus.CREATED, user);
+        } catch (Exception e) {
+            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.BAD_REQUEST, null);
+        }
+
+    }
+
+    @PutMapping("/users/{userId}")
+    public ResponseEntity<Object> updateUser(@PathVariable int userId, @RequestBody UserDataRequest userRequest) {
+        try {
+            UserData user = userRequest.convert();
+            user.setId(userId);
+            userDataService.save(user);
+            return ResponseHandler.generateResponse("Usuario actualizado", HttpStatus.OK, user);
+        } catch (Exception e) {
+            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.BAD_REQUEST, null);
+        }
+
+    }
+
+    @DeleteMapping("users/{userId}")
+    public ResponseEntity<Object> deteteUser(@PathVariable int userId) {
+
+        UserData user = userDataService.findById(userId);
+
+        if (user == null) {
+            return ResponseHandler.generateResponse("Usuario no encontrado", HttpStatus.NOT_FOUND, null);
+        }
+
+        userDataService.deleteById(userId);
+
+        return ResponseHandler.generateResponse("Usuario eliminado", HttpStatus.OK, user);
+    }
+
 }

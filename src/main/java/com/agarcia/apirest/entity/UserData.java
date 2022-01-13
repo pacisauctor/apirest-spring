@@ -18,6 +18,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -25,14 +26,18 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author pacisauctor
  */
 @Entity
-@Table(name = "user_data")
+@Table(name = "user_data", catalog = "app_database", schema = "dbo", uniqueConstraints = {
+    @UniqueConstraint(columnNames = {"username"})})
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "UserData.findAll", query = "SELECT u FROM UserData u"),
+    @NamedQuery(name = "UserData.updateLastAccess", query = "UPDATE UserData SET lastAccess=GETDATE() WHERE id = :id"),
     @NamedQuery(name = "UserData.findById", query = "SELECT u FROM UserData u WHERE u.id = :id"),
+    @NamedQuery(name = "UserData.findByUsername", query = "SELECT u FROM UserData u WHERE u.username = :username"),
     @NamedQuery(name = "UserData.findByFirstName", query = "SELECT u FROM UserData u WHERE u.firstName = :firstName"),
     @NamedQuery(name = "UserData.findByLastName", query = "SELECT u FROM UserData u WHERE u.lastName = :lastName"),
     @NamedQuery(name = "UserData.findByPassword", query = "SELECT u FROM UserData u WHERE u.password = :password"),
+    @NamedQuery(name = "UserData.findByToken", query = "SELECT u FROM UserData u WHERE u.token = :token"),
     @NamedQuery(name = "UserData.findByDateCreated", query = "SELECT u FROM UserData u WHERE u.dateCreated = :dateCreated"),
     @NamedQuery(name = "UserData.findByLastAccess", query = "SELECT u FROM UserData u WHERE u.lastAccess = :lastAccess"),
     @NamedQuery(name = "UserData.findByIsAdmin", query = "SELECT u FROM UserData u WHERE u.isAdmin = :isAdmin"),
@@ -43,31 +48,32 @@ public class UserData implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "id")
+    @Column(nullable = false)
     private Integer id;
     @Basic(optional = false)
-    @Column(name = "first_name")
+    @Column(nullable = false, length = 20)
+    private String username;
+    @Basic(optional = false)
+    @Column(name = "first_name", nullable = false, length = 40)
     private String firstName;
     @Basic(optional = false)
-    @Column(name = "last_name")
+    @Column(name = "last_name", nullable = false, length = 40)
     private String lastName;
     @Basic(optional = false)
-    @Column(name = "password")
+    @Column(nullable = false, length = 250)
     private String password;
-    @Basic(optional = false)
-    @Column(name = "date_created")
+    @Column(length = 250)
+    private String token;
+    @Column(name = "date_created", columnDefinition="DATETIME DEFAULT GETDATE()")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateCreated;
-    @Basic(optional = false)
     @Column(name = "last_access")
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastAccess;
-    @Basic(optional = false)
-    @Column(name = "is_admin")
-    private boolean isAdmin;
-    @Basic(optional = false)
-    @Column(name = "is_active")
-    private boolean isActive;
+    @Column(name = "is_admin", columnDefinition = "DEFAULT 0")
+    private Boolean isAdmin;
+    @Column(name = "is_active", columnDefinition = "DEFAULT 1")
+    private Boolean isActive;
 
     public UserData() {
     }
@@ -76,15 +82,12 @@ public class UserData implements Serializable {
         this.id = id;
     }
 
-    public UserData(Integer id, String firstName, String lastName, String password, Date dateCreated, Date lastAccess, boolean isAdmin, boolean isActive) {
+    public UserData(Integer id, String username, String firstName, String lastName, String password) {
         this.id = id;
+        this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
-        this.dateCreated = dateCreated;
-        this.lastAccess = lastAccess;
-        this.isAdmin = isAdmin;
-        this.isActive = isActive;
     }
 
     public Integer getId() {
@@ -93,6 +96,14 @@ public class UserData implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getFirstName() {
@@ -119,6 +130,14 @@ public class UserData implements Serializable {
         this.password = password;
     }
 
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
     public Date getDateCreated() {
         return dateCreated;
     }
@@ -135,19 +154,19 @@ public class UserData implements Serializable {
         this.lastAccess = lastAccess;
     }
 
-    public boolean getIsAdmin() {
+    public Boolean getIsAdmin() {
         return isAdmin;
     }
 
-    public void setIsAdmin(boolean isAdmin) {
+    public void setIsAdmin(Boolean isAdmin) {
         this.isAdmin = isAdmin;
     }
 
-    public boolean getIsActive() {
+    public Boolean getIsActive() {
         return isActive;
     }
 
-    public void setIsActive(boolean isActive) {
+    public void setIsActive(Boolean isActive) {
         this.isActive = isActive;
     }
 
@@ -173,7 +192,7 @@ public class UserData implements Serializable {
 
     @Override
     public String toString() {
-        return "com.agarcia.apirest.entity.UserData[ id=" + id + " ]";
+        return "com.agarcia.apirest.service.UserData[ id=" + id + " ]";
     }
     
 }
