@@ -6,7 +6,16 @@
 package com.agarcia.apirest.dao;
 
 import com.agarcia.apirest.entity.UserData;
+import com.agarcia.apirest.utils.EncriptadorAES;
+import java.io.UnsupportedEncodingException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 import javax.persistence.EntityManager;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
@@ -30,17 +39,24 @@ public class UserDAOImpl implements UserDAO {
         query.setParameter("username", username);
         if (!query.getResultList().isEmpty()){
             
-            UserData usuario = (UserData) query.getResultList().get(0);
-            if(usuario.getPassword() == null ? password == null : usuario.getPassword().equals(password)){
-                System.out.println("Actualizando usuario");
-                Query q = currentSession.createNamedQuery("UserData.updateLastAccess");
-                q.setParameter("id", usuario.getId());
-                int executeUpdate = q.executeUpdate();
-                
-                return usuario;
-            }else{
-                System.out.println("no funcionó");
-                
+            try {
+                UserData usuario = (UserData) query.getResultList().get(0);
+                System.out.println(password);
+                String passwordDatabaseDesencript = new EncriptadorAES().desencriptar(usuario.getPassword(), "mySecretKeyIsVerySecret");
+                System.out.println(passwordDatabaseDesencript);
+                if(passwordDatabaseDesencript == null ? password == null : passwordDatabaseDesencript.equals(password)){
+                    System.out.println("Actualizando usuario");
+                    Query q = currentSession.createNamedQuery("UserData.updateLastAccess");
+                    q.setParameter("id", usuario.getId());
+                    int executeUpdate = q.executeUpdate();
+                    
+                    return usuario;
+                }else{
+                    System.out.println("credenciales incorrectas");
+                    
+                }
+            } catch (UnsupportedEncodingException | NoSuchAlgorithmException | InvalidKeyException | NoSuchPaddingException | IllegalBlockSizeException | BadPaddingException ex) {
+                Logger.getLogger(UserDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return null;

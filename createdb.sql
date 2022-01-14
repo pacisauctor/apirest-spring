@@ -12,8 +12,7 @@ CREATE TABLE user_data(
     is_admin BIT NOT NULL DEFAULT 0, -- 0 si es usuario, 1 si es admin
     is_active BIT NOT NULL DEFAULT 1 -- 0 si es inactivo, 1, si es activo
 );
-drop table user_data
-GO;
+
 CREATE TABLE category(
     id INT PRIMARY KEY IDENTITY (0,1),
     name VARCHAR(50) NOT NULL,
@@ -23,7 +22,6 @@ CREATE TABLE category(
     last_modified DATETIME NOT NULL,
 
 );
-GO
 CREATE TABLE tag(
     id INT PRIMARY KEY IDENTITY (0,1),
     name VARCHAR(50) NOT NULL
@@ -39,10 +37,9 @@ CREATE TABLE product(
     is_active  BIT NOT NULL DEFAULT 1, -- 0 si es inactivo, 1, si es activo
 
 );
-GO;
+
 CREATE TABLE tags_product(
     id_tag INT FOREIGN KEY REFERENCES tag(id),
     id_product INT FOREIGN KEY REFERENCES product(id),
 );
-GO;
 

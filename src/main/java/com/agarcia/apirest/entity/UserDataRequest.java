@@ -4,6 +4,10 @@
  * and open the template in the editor.
  */
 package com.agarcia.apirest.entity;
+
+import com.agarcia.apirest.utils.EncriptadorAES;
+import java.io.UnsupportedEncodingException;
+import javax.crypto.BadPaddingException;
 /**
  *
  * @author pacisauctor
@@ -15,11 +19,11 @@ public class UserDataRequest {
     private String password;
     private boolean isAdmin;
 
-    public UserDataRequest(String username, String firstName, String lastName, String password, boolean isAdmin) {
+    public UserDataRequest(String username, String firstName, String lastName, String password, boolean isAdmin) throws Exception {
         this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.password = password;
+        this.password = new EncriptadorAES().encriptar(password, "mySecretKeyIsVerySecret");
         this.isAdmin = isAdmin;
     }
 
@@ -55,8 +59,10 @@ public class UserDataRequest {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPassword(String password) throws Exception {
+        System.out.println(password);
+        this.password = new EncriptadorAES().encriptar(password, "mySecretKeyIsVerySecret");
+        System.out.println(this.password);
     }
 
     public boolean isIsAdmin() {
