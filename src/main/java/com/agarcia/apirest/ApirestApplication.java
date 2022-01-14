@@ -28,7 +28,7 @@ public class ApirestApplication {
                     .authorizeRequests()
                     .antMatchers(HttpMethod.POST, "/api/login").permitAll()
                     .antMatchers(HttpMethod.GET,"/").permitAll()
-                    .anyRequest().authenticated();
+                    .anyRequest().permitAll();
         }
     }
 }
