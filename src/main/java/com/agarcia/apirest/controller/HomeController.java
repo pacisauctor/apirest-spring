@@ -5,12 +5,9 @@
  */
 package com.agarcia.apirest.controller;
 
-import com.agarcia.apirest.entity.UserData;
-import com.agarcia.apirest.service.UserDataService;
-import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -21,8 +18,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 public class HomeController {
     
+    private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
     @GetMapping("/")
     public String welcome(){
-        return "welcom to my web";
+        logger.info("Se accedió al inicio");
+        return "<h1>Visita la <a href='/swagger-ui/'>api<a/> :D<h1/>";
     }
 }

@@ -45,14 +45,14 @@ public class UserDAOImpl implements UserDAO {
                 String passwordDatabaseDesencript = new EncriptadorAES().desencriptar(usuario.getPassword(), "mySecretKeyIsVerySecret");
                 System.out.println(passwordDatabaseDesencript);
                 if(passwordDatabaseDesencript == null ? password == null : passwordDatabaseDesencript.equals(password)){
-                    System.out.println("Actualizando usuario");
+                    //System.out.println("Actualizando usuario");
                     Query q = currentSession.createNamedQuery("UserData.updateLastAccess");
                     q.setParameter("id", usuario.getId());
                     int executeUpdate = q.executeUpdate();
                     
                     return usuario;
                 }else{
-                    System.out.println("credenciales incorrectas");
+                    //System.out.println("credenciales incorrectas");
                     
                 }
             } catch (UnsupportedEncodingException | NoSuchAlgorithmException | InvalidKeyException | NoSuchPaddingException | IllegalBlockSizeException | BadPaddingException ex) {

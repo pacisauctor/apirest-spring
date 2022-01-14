@@ -12,6 +12,8 @@ import com.agarcia.apirest.service.CategoryService;
 import com.agarcia.apirest.utils.ResponseHandler;
 import java.util.Date;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +34,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/categories")
 public class CategoryRestController {
 
+    private static final Logger logger = LoggerFactory.getLogger(CategoryRestController.class);
+
     @Autowired
     private CategoryService categoryService;
 
@@ -39,6 +43,7 @@ public class CategoryRestController {
     public ResponseEntity<Object> findAll() {
 
         List<Category> categories = categoryService.findAll();
+        logger.info("Recuperando todas las categorías");
         return ResponseHandler.generateResponse("Categorias recuperadas", HttpStatus.OK, categories);
     }
 
@@ -47,8 +52,10 @@ public class CategoryRestController {
         Category category = categoryService.findById(categoryId);
 
         if (category == null) {
+            logger.error("Categoría con id "+categoryId+" no encontrada.");
             return ResponseHandler.generateResponse("Categoria no encontrada", HttpStatus.NOT_FOUND, null);
         } else {
+            logger.info("Categoría encontrada.");
             return ResponseHandler.generateResponse("Categoria encontrada!", HttpStatus.OK, category);
         }
     }
@@ -62,8 +69,10 @@ public class CategoryRestController {
             category.setIsActive(Boolean.TRUE);
             category.setIsErased(Boolean.FALSE);
             categoryService.save(category);
+            logger.info("Categoría creada exitosamente.");
             return ResponseHandler.generateResponse("Categoria creada", HttpStatus.CREATED, category);
         } catch (Exception e) {
+            logger.error("Error al crear la categoría: "+ e.getMessage());
             return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.BAD_REQUEST, null);
         }
 
@@ -74,12 +83,15 @@ public class CategoryRestController {
         try {
             Category category = categoryService.findById(categoryId);
             if(category == null){
+                logger.error("Categoría con id "+categoryId+" no encontrada.");
                 return ResponseHandler.generateResponse("Categoría no encontrada", HttpStatus.NOT_FOUND, null);
             }
             categoryRequest.copyAttributes(category);
             categoryService.save(category);
+            logger.info("Categoría actualizada.");
             return ResponseHandler.generateResponse("Categoria actualizada", HttpStatus.OK, category);
         } catch (Exception e) {
+            logger.error("Error al actualizar la categoría: "+ e.getMessage());
             return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.BAD_REQUEST, null);
         }
 
@@ -90,11 +102,12 @@ public class CategoryRestController {
         Category category = categoryService.findById(categoryId);
 
         if (category == null) {
+            logger.error("Categoría con id "+categoryId+" no encontrada.");
             return ResponseHandler.generateResponse("Categoria no encontrada", HttpStatus.NOT_FOUND, null);
         }
 
         categoryService.deleteById(categoryId);
-
+        logger.info("Categoría eliminada correctamente.");
         return ResponseHandler.generateResponse("Categoria eliminada", HttpStatus.OK, category);
     }
 }
