@@ -33,9 +33,8 @@ public class ApirestApplication {
                     .addFilterAfter(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
                     .authorizeRequests()
                     .antMatchers(HttpMethod.POST, "/api/login").permitAll()
-                    .antMatchers(HttpMethod.GET,"/swagger-ui/").permitAll()                    
                     .antMatchers(HttpMethod.GET,"/").permitAll()
-                    .anyRequest().permitAll();
+                    .anyRequest().authenticated();
         }
     }
 }
