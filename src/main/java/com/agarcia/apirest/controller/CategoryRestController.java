@@ -8,8 +8,6 @@ package com.agarcia.apirest.controller;
 import com.agarcia.apirest.entity.Category;
 import com.agarcia.apirest.entity.CategoryCreate;
 import com.agarcia.apirest.entity.CategoryUpdate;
-import com.agarcia.apirest.entity.UserData;
-import com.agarcia.apirest.entity.UserDataRequest;
 import com.agarcia.apirest.service.CategoryService;
 import com.agarcia.apirest.utils.ResponseHandler;
 import java.util.Date;
