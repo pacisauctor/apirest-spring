@@ -62,6 +62,7 @@ Cabe mencionar que con la ayuda de Swagger UI se automatizó una documentación 
 - product-rest-controller
 - user-controller
 - user-data-rest-controller
+
 Esta incompleta puesto que falta agregarle la parte de autenticación, pero lo dejé para posteriormente retormalo y agregarlo.
 
 
