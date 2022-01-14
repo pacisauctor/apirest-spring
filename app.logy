@@ -1,0 +1,29 @@
+2022-01-14 13:47:41.738  INFO 32515 --- [restartedMain] com.agarcia.apirest.ApirestApplication   : Starting ApirestApplication using Java 11.0.13 on gladiador with PID 32515 (/home/pacisauctor/Documents/apirest/target/classes started by pacisauctor in /home/pacisauctor/Documents/apirest)
+2022-01-14 13:47:41.738  INFO 32515 --- [restartedMain] com.agarcia.apirest.ApirestApplication   : No active profile set, falling back to default profiles: default
+2022-01-14 13:47:42.258  INFO 32515 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-01-14 13:47:42.289  INFO 32515 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 30 ms. Found 0 JPA repository interfaces.
+2022-01-14 13:47:42.412  INFO 32515 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2022-01-14 13:47:42.413  INFO 32515 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-01-14 13:47:42.414  INFO 32515 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.56]
+2022-01-14 13:47:42.425  INFO 32515 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2022-01-14 13:47:42.425  INFO 32515 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 684 ms
+2022-01-14 13:47:42.463  INFO 32515 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-26 - Starting...
+2022-01-14 13:47:42.496  INFO 32515 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-26 - Start completed.
+2022-01-14 13:47:42.502  INFO 32515 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-01-14 13:47:42.510  INFO 32515 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.SQLServer2016Dialect
+2022-01-14 13:47:42.576  INFO 32515 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-01-14 13:47:42.602  INFO 32515 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-01-14 13:47:42.803  WARN 32515 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-01-14 13:47:42.858  INFO 32515 --- [restartedMain] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 5a37df2c-42e0-4d05-aeb1-af524e34ab68
+
+2022-01-14 13:47:42.866  INFO 32515 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@41336e37, org.springframework.security.web.context.SecurityContextPersistenceFilter@18a7519e, org.springframework.security.web.header.HeaderWriterFilter@2e23a0ad, org.springframework.security.web.authentication.logout.LogoutFilter@3080da1c, com.agarcia.apirest.security.JWTAuthorizationFilter@284b1155, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@ea9f8fe, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@3d3c074e, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@46db8340, org.springframework.security.web.session.SessionManagementFilter@4d1c40c3, org.springframework.security.web.access.ExceptionTranslationFilter@468a0246, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@445f17b]
+2022-01-14 13:47:42.898  INFO 32515 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2022-01-14 13:47:42.949  INFO 32515 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2022-01-14 13:47:43.103  INFO 32515 --- [restartedMain] com.agarcia.apirest.ApirestApplication   : Started ApirestApplication in 1.401 seconds (JVM running for 6470.364)
+2022-01-14 13:47:43.106  INFO 32515 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2022-01-14 13:47:43.107  INFO 32515 --- [restartedMain] com.agarcia.apirest.ApirestApplication   : Empezó a correr la aplicación
+2022-01-14 13:47:45.372  INFO 32515 --- [Thread-103] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2022-01-14 13:47:45.374  INFO 32515 --- [Thread-103] com.zaxxer.hikari.HikariDataSource       : HikariPool-26 - Shutdown initiated...
+2022-01-14 13:47:45.382  INFO 32515 --- [Thread-103] com.zaxxer.hikari.HikariDataSource       : HikariPool-26 - Shutdown completed.

@@ -19,9 +19,9 @@ CREATE TABLE category(
     is_active  BIT NOT NULL DEFAULT 1, -- 0 si es inactivo, 1, si es activo
     is_erased BIT NOT NULL DEFAULT 1, -- 0 si es borrado, 1, si es activo
     date_created DATETIME DEFAULT GETDATE() NOT NULL,
-    last_modified DATETIME NOT NULL,
-
+    last_modified DATETIME,
 );
+
 CREATE TABLE tag(
     id INT PRIMARY KEY IDENTITY (0,1),
     name VARCHAR(50) NOT NULL
@@ -33,9 +33,8 @@ CREATE TABLE product(
     cost MONEY NOT NULL DEFAULT 0,
     price MONEY NOT NULL DEFAULT 0,
     date_created DATETIME DEFAULT GETDATE() NOT NULL,
-    last_modified DATETIME NOT NULL,
+    last_modified DATETIME,
     is_active  BIT NOT NULL DEFAULT 1, -- 0 si es inactivo, 1, si es activo
-
 );
 
 CREATE TABLE tags_product(
@@ -43,3 +42,4 @@ CREATE TABLE tags_product(
     id_product INT FOREIGN KEY REFERENCES product(id),
 );
 
+select @@version
