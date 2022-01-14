@@ -31,35 +31,49 @@ public class UserDAOImpl implements UserDAO {
 
     @Autowired
     private EntityManager entityManager;
-    
+
     @Override
     public UserData login(String username, String password) {
         Session currentSession = entityManager.unwrap(Session.class);
         Query query = currentSession.createNamedQuery("UserData.findByUsername");
         query.setParameter("username", username);
-        if (!query.getResultList().isEmpty()){
-            
+        if (!query.getResultList().isEmpty()) {
+
             try {
                 UserData usuario = (UserData) query.getResultList().get(0);
                 System.out.println(password);
                 String passwordDatabaseDesencript = new EncriptadorAES().desencriptar(usuario.getPassword(), "mySecretKeyIsVerySecret");
                 System.out.println(passwordDatabaseDesencript);
-                if(passwordDatabaseDesencript == null ? password == null : passwordDatabaseDesencript.equals(password)){
+                if (passwordDatabaseDesencript == null ? password == null : passwordDatabaseDesencript.equals(password)) {
                     //System.out.println("Actualizando usuario");
                     Query q = currentSession.createNamedQuery("UserData.updateLastAccess");
                     q.setParameter("id", usuario.getId());
                     int executeUpdate = q.executeUpdate();
-                    
+
                     return usuario;
-                }else{
+                } else {
                     //System.out.println("credenciales incorrectas");
-                    
+
                 }
             } catch (UnsupportedEncodingException | NoSuchAlgorithmException | InvalidKeyException | NoSuchPaddingException | IllegalBlockSizeException | BadPaddingException ex) {
                 Logger.getLogger(UserDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return null;
+    }
+
+    @Override
+    public boolean isAdmin(String username) {
+        Session currentSession = entityManager.unwrap(Session.class);
+        Query query = currentSession.createNamedQuery("UserData.findByUsername");
+        query.setParameter("username", username);
+        if (!query.getResultList().isEmpty()) {
+            UserData usuario = (UserData) query.getResultList().get(0);
+            return usuario.getIsAdmin();
+        } else {
+            return false;
+        }
+
     }
 
 }

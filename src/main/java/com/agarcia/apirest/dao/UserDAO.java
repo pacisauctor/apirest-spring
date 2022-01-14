@@ -19,4 +19,6 @@ public interface UserDAO {
     @Modifying
     public UserData login(String username, String password);
     
+    
+    public boolean isAdmin(String username);
 }

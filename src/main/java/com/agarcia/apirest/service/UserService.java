@@ -13,4 +13,6 @@ import com.agarcia.apirest.entity.UserData;
  */
 public interface UserService {
     public UserData login(String username, String password);
+    
+    public boolean isAdmin(String username);
 }

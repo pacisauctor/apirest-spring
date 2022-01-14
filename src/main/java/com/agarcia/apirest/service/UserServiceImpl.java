@@ -25,5 +25,10 @@ public class UserServiceImpl implements UserService{
     public UserData login(String username, String password) {
         return userDAO.login(username, password);
     }
+
+    @Override
+    public boolean isAdmin(String username) {
+        return userDAO.isAdmin(username);
+    }
     
 }
