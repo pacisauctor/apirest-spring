@@ -34,6 +34,7 @@ Esta api tiene las siguientes funcionalidades:
     - Pueden desactivar usuarios
     
 - Base de Datos: La base de datos consta de 5 tablas ([modelo relacional acá](https://github.com/pacisauctor/apirest-spring/blob/master/app_database.png?raw=true)), pero en resumen, es un api donde se pueden crear productos y sus categorías, además, a los productos puedes asignarles tags.
+- Bitacora: mientras se usa, cada actividad importante se guardará en un archivo app.log.
 
 ## ¿Cómo puedo probarlo?
 
@@ -53,17 +54,6 @@ Iniciar sesión, por medio de la ```POST /api/login/``` , en Postman está prese
 El user2 y user4 son administradores, por lo que pueden hacer cualquier consulta, en cambio, el user1 y user3, no lo son por lo que no pueden acceder a los endpoints de ```/api/users/```
 
 Luego de eso puede acceder a las otras endpoints perfectamente, tal y como se declararon en postman.
-
-## Extras
-
-Cabe mencionar que con la ayuda de Swagger UI se automatizó una documentación (un poco imcompleta porque no me dió tiempo) acerca de los conjuntos de endpoints disponibles, los de interés son:
-- category-rest-controller 
-- tag-rest-controller
-- product-rest-controller
-- user-controller
-- user-data-rest-controller
-
-Esta incompleta puesto que falta agregarle la parte de autenticación, pero lo dejé para posteriormente retormalo y agregarlo.
 
 
 --------------------------------
