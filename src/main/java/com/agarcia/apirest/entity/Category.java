@@ -50,13 +50,13 @@ public class Category implements Serializable {
     @Column(name = "name")
     private String name;
     @Basic(optional = false)
-    @Column(name = "is_active")
+    @Column(name = "is_active", columnDefinition = "BIT NOT NULL DEFAULT 1")
     private boolean isActive;
     @Basic(optional = false)
-    @Column(name = "is_erased")
+    @Column(name = "is_erased", columnDefinition = "BIT NOT NULL DEFAULT 1")
     private boolean isErased;
     @Basic(optional = false)
-    @Column(name = "date_created")
+    @Column(name = "date_created",columnDefinition="DATETIME DEFAULT GETDATE()")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateCreated;
     @Basic(optional = false)
@@ -72,6 +72,13 @@ public class Category implements Serializable {
     public Category(Integer id) {
         this.id = id;
     }
+
+    public Category(String name, boolean isActive, boolean isErased) {
+        this.name = name;
+        this.isActive = isActive;
+        this.isErased = isErased;
+    }
+    
 
     public Category(Integer id, String name, boolean isActive, boolean isErased, Date dateCreated, Date lastModified) {
         this.id = id;

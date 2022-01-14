@@ -32,20 +32,20 @@ import org.springframework.http.ResponseEntity;
  * @author pacisauctor
  */
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/users")
 public class UserDataRestController {
 
     @Autowired
     private UserDataService userDataService;
 
-    @GetMapping("/users")
+    @GetMapping("/")
     public ResponseEntity<Object> findAll() {
 
         List<UserData> users = userDataService.findAll();
         return ResponseHandler.generateResponse("Usuarios recuperados", HttpStatus.OK, users);
     }
 
-    @GetMapping("/users/{userId}")
+    @GetMapping("/{userId}")
     public ResponseEntity<Object> getUser(@PathVariable int userId) {
         UserData user = userDataService.findById(userId);
 
@@ -56,7 +56,7 @@ public class UserDataRestController {
         }
     }
 
-    @PostMapping("/users")
+    @PostMapping("/")
     public ResponseEntity<Object> addUser(@RequestBody UserDataRequest userRequest) {
         try {
             UserData user = userRequest.convert();
@@ -70,11 +70,14 @@ public class UserDataRestController {
 
     }
 
-    @PutMapping("/users/{userId}")
+    @PutMapping("/{userId}")
     public ResponseEntity<Object> updateUser(@PathVariable int userId, @RequestBody UserDataRequest userRequest) {
         try {
-            UserData user = userRequest.convert();
-            user.setId(userId);
+            UserData user = userDataService.findById(userId);
+            if(user == null){
+                return ResponseHandler.generateResponse("Usuario no encontrado", HttpStatus.NOT_FOUND, null);
+            }
+            userRequest.copyAttributes(user);
             userDataService.save(user);
             return ResponseHandler.generateResponse("Usuario actualizado", HttpStatus.OK, user);
         } catch (Exception e) {
@@ -83,7 +86,7 @@ public class UserDataRestController {
 
     }
 
-    @DeleteMapping("users/{userId}")
+    @DeleteMapping("/{userId}")
     public ResponseEntity<Object> deteteUser(@PathVariable int userId) {
 
         UserData user = userDataService.findById(userId);

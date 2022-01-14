@@ -78,5 +78,13 @@ public class UserDataRequest {
         return object;
     }
 
+    public void copyAttributes(UserData user) {
+        user.setUsername(username);
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+        user.setIsAdmin(isAdmin);
+        user.setPassword(password); 
+    }
+
     
 }
