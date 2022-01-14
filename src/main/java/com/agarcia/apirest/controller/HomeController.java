@@ -22,6 +22,6 @@ public class HomeController {
     @GetMapping("/")
     public String welcome(){
         logger.info("Se accedió al inicio");
-        return "<h1>Visita la <a href='https://documenter.getpostman.com/view/12356617/UVXjJvYr#8c8f3d8c-163c-4a65-8a82-f0ed8d927ff4'>Documenteción de postman<a/> :D<h1/>";
+        return "<h1>Visita la <a href='https://documenter.getpostman.com/view/12356617/UVXjJvYr#8c8f3d8c-163c-4a65-8a82-f0ed8d927ff4'>Documentación de postman<a/> :D<h1/>";
     }
 }
