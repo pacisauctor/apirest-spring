@@ -5,6 +5,8 @@
  */
 package com.agarcia.apirest.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -72,11 +74,13 @@ public class Product implements Serializable {
     @Basic(optional = false)
     @Column(name = "is_active")
     private boolean isActive;
+    @JsonIgnoreProperties("productList")
     @JoinTable(name = "tags_product", joinColumns = {
         @JoinColumn(name = "id_product", referencedColumnName = "id")}, inverseJoinColumns = {
         @JoinColumn(name = "id_tag", referencedColumnName = "id")})
     @ManyToMany
     private List<Tag> tagList;
+    @JsonIgnoreProperties("productList")
     @JoinColumn(name = "id_category", referencedColumnName = "id")
     @ManyToOne
     private Category idCategory;

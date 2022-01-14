@@ -5,6 +5,8 @@
  */
 package com.agarcia.apirest.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -63,6 +65,7 @@ public class Category implements Serializable {
     @Column(name = "last_modified")
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastModified;
+    @JsonIgnoreProperties("idCategory")
     @OneToMany(mappedBy = "idCategory")
     private List<Product> productList;
 

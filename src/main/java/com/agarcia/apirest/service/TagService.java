@@ -5,24 +5,20 @@
  */
 package com.agarcia.apirest.service;
 
-import com.agarcia.apirest.entity.Product;
-import com.agarcia.apirest.entity.ProductCreate;
+import com.agarcia.apirest.entity.Tag;
 import java.util.List;
 
 /**
  *
  * @author pacisauctor
  */
-public interface ProductService {
+public interface TagService {
 
-    public List<Product> findAll();
+    public List<Tag> findAll();
 
-    public Product findById(int id);
+    public Tag findById(int id);
 
-    public Product save(ProductCreate product);
-    
-    public Product save(ProductCreate productData, Product product);
-
+    public void save(Tag tag);
 
     public void deleteById(int id);
 }

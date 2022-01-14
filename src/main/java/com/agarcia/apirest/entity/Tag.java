@@ -5,6 +5,8 @@
  */
 package com.agarcia.apirest.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
@@ -42,6 +44,7 @@ public class Tag implements Serializable {
     @Basic(optional = false)
     @Column(name = "name")
     private String name;
+    @JsonIgnoreProperties("tagList")
     @ManyToMany(mappedBy = "tagList")
     private List<Product> productList;
 

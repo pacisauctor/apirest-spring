@@ -6,6 +6,7 @@
 package com.agarcia.apirest.dao;
 
 import com.agarcia.apirest.entity.Product;
+import com.agarcia.apirest.entity.ProductCreate;
 import java.util.List;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,8 +23,12 @@ public interface ProductDAO {
 
     @Transactional
     @Modifying
-    public void save(Product product);
+    public Product save(ProductCreate product);
 
+    @Transactional
+    @Modifying
+    public Product save(ProductCreate productData, Product product);
+    
     @Transactional
     @Modifying
     public void deleteById(int id);

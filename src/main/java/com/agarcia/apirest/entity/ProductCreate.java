@@ -5,6 +5,8 @@
  */
 package com.agarcia.apirest.entity;
 
+import java.math.BigDecimal;
+
 /**
  *
  * @author pacisauctor
@@ -14,16 +16,30 @@ public class ProductCreate {
     private double cost;
     private double price;
     private int categoryId;
+    private boolean isActive;
     private int [] tagsId;
 
-    public ProductCreate(String name, double cost, double price, int categoryId, int[] tagsId) {
+    public ProductCreate(String name, double cost, double price, int categoryId, int[] tagsId, boolean isActive) {
         this.name = name;
         this.cost = cost;
         this.price = price;
         this.categoryId = categoryId;
         this.tagsId = tagsId;
+        this.isActive = isActive;
     }
 
+    public ProductCreate() {
+    }
+
+    public boolean isIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(boolean isActive) {
+        this.isActive = isActive;
+    }
+
+    
     public String getName() {
         return name;
     }
@@ -62,6 +78,15 @@ public class ProductCreate {
 
     public void setTagsId(int[] tagsId) {
         this.tagsId = tagsId;
+    }
+
+    public Product convert() {
+        Product p = new Product();
+        p.setName(name);
+        p.setCost(BigDecimal.valueOf(cost));
+        p.setPrice(BigDecimal.valueOf(price));
+        
+        return p;
     }
 
  

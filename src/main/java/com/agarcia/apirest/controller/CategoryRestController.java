@@ -54,7 +54,7 @@ public class CategoryRestController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<Object> addUser(@RequestBody CategoryCreate categoryRequest) {
+    public ResponseEntity<Object> addCategory(@RequestBody CategoryCreate categoryRequest) {
         try {
             Category category = categoryRequest.convert();
             category.setDateCreated(new Date());
@@ -85,7 +85,7 @@ public class CategoryRestController {
 
     }
     @DeleteMapping("/{categoryId}")
-    public ResponseEntity<Object> deteteUser(@PathVariable int categoryId) {
+    public ResponseEntity<Object> deteteCategory(@PathVariable int categoryId) {
 
         Category category = categoryService.findById(categoryId);
 

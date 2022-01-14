@@ -7,6 +7,7 @@ package com.agarcia.apirest.service;
 
 import com.agarcia.apirest.dao.ProductDAO;
 import com.agarcia.apirest.entity.Product;
+import com.agarcia.apirest.entity.ProductCreate;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,13 +34,18 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void save(Product product) {
-        productDAO.save(product);
+    public Product save(ProductCreate product) {
+        return productDAO.save(product);
     }
 
     @Override
     public void deleteById(int id) {
         productDAO.deleteById(id);
+    }
+
+    @Override
+    public Product save(ProductCreate productData, Product product) {
+        return productDAO.save(productData, product);
     }
 
 }
